@@ -8,6 +8,7 @@ import { ModeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Suspense, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 interface Recepie {
 	id: number;
@@ -36,7 +37,7 @@ export default function Home() {
 
 	async function searchRecepies(searchQuery: string) {
 		try {
-			const data = await getSearchedrecepies(searchQuery);
+			const data: any = await getSearchedrecepies(searchQuery);
 			setRecepies(data);
 		} catch (error) {
 			console.error(error);
