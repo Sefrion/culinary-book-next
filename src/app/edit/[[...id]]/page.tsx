@@ -45,7 +45,7 @@ interface Recepie {
 }
 
 export default function Edit() {
-	const [recepieId, setRecepieId] = useState<number>();
+	const [recepieId, setRecepieId] = useState<number | null>();
 	const [loading, setLoading] = useState(true);
 	const { id } = useParams();
 	const router = useRouter();
@@ -89,7 +89,9 @@ export default function Edit() {
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		try {
-			await updateRecepie(+recepieId, values);
+			if (recepieId) {
+				await updateRecepie(+recepieId, values);
+			}
 			router.push('/');
 		} catch (error) {
 			throw new Error('Could not update recepie');

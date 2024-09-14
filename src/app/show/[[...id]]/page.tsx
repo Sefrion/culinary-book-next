@@ -61,30 +61,35 @@ export default function Show() {
 		}
 	};
 
-	return (
-		<>
-			<div className='border mx-1 my-2 rounded-md p-2 lg:w-[80vw] xl:w-[40vw] lg:mx-auto flex flex-col gap-4'>
-				<Link href='/' className='flex justify-end mt-2'>
-					<Button>Назад к рецептам</Button>
-				</Link>
-				<h1 className='text-xl'>{recepie?.title}</h1>
-				<ol
-					className={`${ingredients[0] === '' ? '' : 'list-decimal pl-4'}  italic`}
-				>
-					{ingredients[0] === '' ? (
-						<p>Нет списка ингредиентов</p>
-					) : (
-						ingredients?.map((ingredient, idx) => <li key={idx}>{ingredient}</li>)
-					)}
-				</ol>
-				<p>{recepie?.instructions}</p>
-				<div className='space-x-2'>
-					<Link href={`/edit/${recepie?.id}`}>
-						<Button>Изменить</Button>
+	if (recepie && ingredients) {
+		const ingredients = recepie.ingredients.split(',');
+		return (
+			<>
+				<div className='border mx-1 my-2 rounded-md p-2 lg:w-[80vw] xl:w-[40vw] lg:mx-auto flex flex-col gap-4'>
+					<Link href='/' className='flex justify-end mt-2'>
+						<Button>Назад к рецептам</Button>
 					</Link>
-					<Button onClick={() => deleteRecord(recepie?.id)}>Удалить</Button>
+					<h1 className='text-xl'>{recepie?.title}</h1>
+					<ol
+						className={`${ingredients[0] === '' ? '' : 'list-decimal pl-4'}  italic`}
+					>
+						{ingredients[0] === '' ? (
+							<p>Нет списка ингредиентов</p>
+						) : (
+							ingredients?.map((ingredient, idx) => <li key={idx}>{ingredient}</li>)
+						)}
+					</ol>
+					<p>{recepie?.instructions}</p>
+					<div className='space-x-2'>
+						<Link href={`/edit/${recepie?.id}`}>
+							<Button>Изменить</Button>
+						</Link>
+						<Button onClick={() => deleteRecord(recepie?.id)}>Удалить</Button>
+					</div>
 				</div>
-			</div>
-		</>
-	);
+			</>
+		);
+	} else {
+		<p className='text-center text-xl mt-12'>Рецепт не найден</p>;
+	}
 }
