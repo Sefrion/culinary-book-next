@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import createRecepie from '@/actions/createRecepie';
+import { toast } from 'react-toastify';
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -49,6 +50,7 @@ export default function Create() {
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		try {
 			await createRecepie(values);
+			toast.success('Рецепт успешно создан');
 			router.push('/');
 		} catch (error) {
 			console.error(error);

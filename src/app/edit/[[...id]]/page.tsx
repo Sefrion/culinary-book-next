@@ -2,6 +2,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -92,6 +93,7 @@ export default function Edit() {
 			if (recepieId) {
 				await updateRecepie(+recepieId, values);
 			}
+			toast.success('Рецепт успешно обновлен');
 			router.push('/');
 		} catch (error) {
 			throw new Error('Could not update recepie');

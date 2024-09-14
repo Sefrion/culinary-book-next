@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 interface Recepie {
 	id: number;
@@ -55,6 +56,7 @@ export default function Show() {
 	const deleteRecord = async (id: number) => {
 		try {
 			await deleteRecepie(id);
+			toast.success('Рецепт успешно удален');
 			router.push('/');
 		} catch (error) {
 			console.log(error);
